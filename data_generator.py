@@ -9,6 +9,9 @@ The data is intentionally dirty, just to stress test data quality checks:
 Usage:
     python data_generator.py
     python data_generator.py --rows 10000 --seed 7 --out-dir data/raw
+
+If users.csv and transactions.csv already exist the script skips generation;
+pass --force to overwrite them.
 """
 
 import argparse
@@ -91,7 +94,16 @@ def main() -> None:
     parser.add_argument("--rows", type=int, default=5000, help="number of transactions (default 5000)")
     parser.add_argument("--seed", type=int, default=42, help="random seed for reproducible data")
     parser.add_argument("--out-dir", type=Path, default=DEFAULT_OUT_DIR, help="output folder")
+    parser.add_argument("--force", action="store_true", help="regenerate even if the CSVs already exist")
     args = parser.parse_args()
+
+    users_path = args.out_dir / "users.csv"
+    transactions_path = args.out_dir / "transactions.csv"
+
+    # Skip only when the dataset is complete; a lone file means it is broken, so rebuild both.
+    if users_path.exists() and transactions_path.exists() and not args.force:
+        print(f"Raw data already exists in {args.out_dir}, skipping. Use --force to regenerate.")
+        return
 
     rng = np.random.default_rng(args.seed)
     users = generate_users(rng)
@@ -99,8 +111,8 @@ def main() -> None:
     injected = inject_bad_data(rng, transactions)
 
     args.out_dir.mkdir(parents=True, exist_ok=True)
-    users.to_csv(args.out_dir / "users.csv", index=False)
-    transactions.to_csv(args.out_dir / "transactions.csv", index=False)
+    users.to_csv(users_path, index=False)
+    transactions.to_csv(transactions_path, index=False)
 
     print(f"Wrote {len(users)} users and {len(transactions)} transactions to {args.out_dir}")
     print(f"Injected bad rows: {injected}")
