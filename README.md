@@ -56,7 +56,7 @@ python -m venv .venv
 Windows (Command Prompt):
 ```Command Prompt
 python -m venv .venv
- .venv\Scripts\activate.bat
+.venv\Scripts\activate.bat
 ```
 
 macOS / Linux:
