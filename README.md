@@ -53,6 +53,12 @@ python -m venv .venv
 .venv\Scripts\Activate.ps1
 ```
 
+Windows (Command Prompt):
+```Command Prompt
+python -m venv .venv
+ .venv\Scripts\activate.bat
+```
+
 macOS / Linux:
 ```bash
 python3 -m venv .venv
