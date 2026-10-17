@@ -41,7 +41,7 @@ data/raw/*.csv ──► Extract ──► Validate ──► Transform ──�
 Clone the repository and move into it:
 
 ```bash
-git clone https://github.com/<your-username>/etl-pipeline.git
+git clone https://github.com/swamimishra/etl-pipeline.git
 cd etl-pipeline
 ```
 
