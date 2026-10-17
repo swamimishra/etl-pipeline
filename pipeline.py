@@ -187,3 +187,6 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         logger.error("%s", exc)
         return 1  # non-zero exit code so a scheduler sees the failure
     return 0
+
+if __name__ == "__main__":
+    sys.exit(main())

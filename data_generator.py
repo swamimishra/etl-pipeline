@@ -116,3 +116,6 @@ def main() -> None:
 
     print(f"Wrote {len(users)} users and {len(transactions)} transactions to {args.out_dir}")
     print(f"Injected bad rows: {injected}")
+
+if __name__ == "__main__":
+    main()
